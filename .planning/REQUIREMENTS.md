@@ -110,25 +110,60 @@ Explicitly excluded — documented to prevent scope creep.
 
 ## Traceability
 
-Filled during roadmap creation — maps each requirement to exactly one phase.
+Maps each v1 requirement to exactly one phase. Populated 2026-04-11.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 through FOUND-06 | TBD | Pending |
-| LAWS-01 through LAWS-05 | TBD | Pending |
-| COURT-01 through COURT-05 | TBD | Pending |
-| QUERY-01 through QUERY-04 | TBD | Pending |
-| ENT-01 through ENT-05 | TBD | Pending |
-| FUSE-01 through FUSE-05 | TBD | Pending |
-| LLM-01 through LLM-06 | TBD | Pending |
-| CALIB-01 through CALIB-05 | TBD | Pending |
-| INC-01 through INC-03 | TBD | Pending |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Pending |
+| LAWS-01 | Phase 1 | Pending |
+| LAWS-02 | Phase 1 | Pending |
+| LAWS-03 | Phase 1 | Pending |
+| LAWS-04 | Phase 1 | Pending |
+| LAWS-05 | Phase 1 | Pending |
+| QUERY-03 | Phase 1 | Pending |
+| QUERY-04 | Phase 1 | Pending |
+| CALIB-01 | Phase 1 | Pending |
+| CALIB-02 | Phase 1 | Pending |
+| CALIB-03 | Phase 1 | Pending |
+| CALIB-04 | Phase 1 | Pending |
+| CALIB-05 | Phase 1 | Pending |
+| INC-01 | Phase 1 | Pending |
+| INC-02 | Phase 1 | Pending |
+| INC-03 | Phase 1 | Pending |
+| COURT-01 | Phase 2 | Pending |
+| COURT-02 | Phase 2 | Pending |
+| COURT-03 | Phase 2 | Pending |
+| COURT-05 | Phase 2 | Pending |
+| QUERY-01 | Phase 2 | Pending |
+| FUSE-01 | Phase 2 | Pending |
+| FUSE-05 | Phase 2 | Pending |
+| ENT-01 | Phase 3 | Pending |
+| ENT-02 | Phase 3 | Pending |
+| ENT-03 | Phase 3 | Pending |
+| ENT-04 | Phase 3 | Pending |
+| ENT-05 | Phase 3 | Pending |
+| QUERY-02 | Phase 3 | Pending |
+| FUSE-02 | Phase 3 | Pending |
+| COURT-04 | Phase 4 | Pending |
+| FUSE-03 | Phase 4 | Pending |
+| FUSE-04 | Phase 4 | Pending |
+| LLM-01 | Phase 5 | Pending |
+| LLM-02 | Phase 5 | Pending |
+| LLM-03 | Phase 5 | Pending |
+| LLM-04 | Phase 5 | Pending |
+| LLM-05 | Phase 5 | Pending |
+| LLM-06 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 43 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 43 ⚠️ (expected — will be mapped by roadmapper)
+- Mapped to phases: 43 ✓ (each requirement appears exactly once)
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-10*
-*Last updated: 2026-04-10 after initial definition*
+*Last updated: 2026-04-11 — traceability filled by roadmapper; all 43 requirements mapped*
