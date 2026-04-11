@@ -139,7 +139,7 @@ Maps each v1 requirement to exactly one phase. Populated 2026-04-11.
 | COURT-02 | Phase 2 | Pending |
 | COURT-03 | Phase 2 | Pending |
 | COURT-05 | Phase 2 | Pending |
-| QUERY-01 | Phase 2 | Pending |
+| QUERY-01 | Phase 1 | Pending |
 | FUSE-01 | Phase 2 | Pending |
 | FUSE-05 | Phase 2 | Pending |
 | ENT-01 | Phase 3 | Pending |
