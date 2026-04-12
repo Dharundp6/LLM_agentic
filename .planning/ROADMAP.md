@@ -42,19 +42,21 @@ Starting from a near-zero F1 baseline (0.009), this roadmap builds the Kaggle su
   5. Submission.csv produced with court citations included; expected Val Macro-F1 >= 0.05 (minimum viability for court coverage)
 **Plans:** 2 plans
 Plans:
-- [ ] 02-01-PLAN.md -- Court corpus load, German filter, bm25s index build with RAM profiling, BM25 court retrieval top-200, per-signal val F1 logging
-- [ ] 02-02-PLAN.md -- 3-signal RRF fusion with COURT_ID_OFFSET namespace, cross-encoder + calibration + submission updated for dual-corpus
+- [x] 02-01-PLAN.md -- Court corpus load, German filter, bm25s index build with RAM profiling, BM25 court retrieval top-200, per-signal val F1 logging
+- [x] 02-02-PLAN.md -- 3-signal RRF fusion with COURT_ID_OFFSET namespace, cross-encoder + calibration + submission updated for dual-corpus
 
-### Phase 3: Entity + Citation Graph Signals
-**Goal**: Queries with explicit article references (Art. X OR, BGE X Y Z) are answered with perfect-precision direct lookup; citation graph converts laws hits into court hits at zero additional model cost
+### Phase 3: Entity + Citation Graph + Graph RAG Signals
+**Goal**: Queries with explicit article references are answered with perfect-precision direct lookup; citation graph + co-citation matrix + PPR convert initial hits into expanded candidate sets at zero model cost; graph signals are the highest-impact advanced technique
 **Depends on**: Phase 2
-**Requirements**: ENT-01, ENT-02, ENT-03, ENT-04, ENT-05, QUERY-02, FUSE-02
+**Requirements**: ENT-01, ENT-02, ENT-03, ENT-04, ENT-05, GRAPH-01, GRAPH-02, GRAPH-03, QUERY-02, FUSE-02
 **Success Criteria** (what must be TRUE):
   1. Regex extracts `(law_code, article_number)` tuples from queries; canonical Swiss citation format variants (Art./Abs. spacing, Roman numerals, ss/ß, ZGB/CC aliases) are normalized before matching
   2. Entity direct lookup returns exact-match statute doc_ids as a separate high-weight RRF signal; queries with explicit article refs show higher precision than retrieval-only baseline
   3. Citation graph inverted index `(law_code, art_num) -> [court_doc_ids]` is built once at startup from a single scan of court_considerations.csv; graph expansion adds BGE decisions that cite matched articles
-  4. RRF signal weights are learned from the validation set via grid search across the now four-signal list (laws-dense, laws-BM25, court-BM25, entity-lookup); learned weights replace equal-weight default
-  5. Submission.csv produced; Val Macro-F1 improves over Phase 2 baseline; nearby article expansion (+/-2 articles, same law) is present as a low-weight candidate path
+  4. Co-citation matrix `(statute_A, statute_B) -> count` built from court corpus; when statute A is retrieved, frequently co-cited statutes are boosted as candidates
+  5. Personalized PageRank seeded by initial retrieval results propagates relevance through the citation graph; top PPR-ranked nodes become an additional RRF signal
+  6. RRF signal weights are learned from the validation set via grid search across the now 5-6 signal list (laws-dense, laws-BM25, court-BM25, entity-lookup, co-citation, PPR); learned weights replace equal-weight default
+  7. Submission.csv produced; Val Macro-F1 improves significantly over Phase 2 baseline; nearby article expansion (+/-2 articles, same law) is present as a low-weight candidate path
 **Plans**: TBD
 
 ### Phase 4: Quality Signals

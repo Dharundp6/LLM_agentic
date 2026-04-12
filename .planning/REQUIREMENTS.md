@@ -46,6 +46,9 @@ Requirements for the competitive Kaggle submission. Each maps to a roadmap phase
 - [ ] **ENT-03**: Pre-built citation graph: `(law_code, art_num) → [court_doc_ids]` inverted index scanned once over court_considerations text at startup
 - [ ] **ENT-04**: Citation graph expansion — when an article is found in laws, automatically add BGE court decisions that cite it
 - [ ] **ENT-05**: Entity lookup signal contributes to RRF fusion as a separate high-weight rank list
+- [ ] **GRAPH-01**: Co-citation matrix: `(statute_A, statute_B) → co_citation_count` built from court corpus scan; when statute A is retrieved, co-cited statutes get boosted as candidates
+- [ ] **GRAPH-02**: Personalized PageRank (PPR) over citation graph seeded by initial retrieval results; top-ranked PPR nodes become an additional RRF signal
+- [ ] **GRAPH-03**: Bibliographic coupling: court decisions citing similar statute sets are scored as thematically similar; used as a candidate expansion signal
 
 ### Fusion & Reranking
 
