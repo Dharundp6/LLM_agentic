@@ -1104,32 +1104,32 @@ Claims tagged `[ASSUMED]` or `[ASSUMPTION A#]` in this research that the planner
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Which BGE-M3 `max_length` is optimal for Swiss legal text?**
    - What we know: BGE-M3 supports 8192 tokens `[CITED: huggingface.co/BAAI/bge-m3]`. `solution.py` uses `max_length=512` for e5-large (e5's hard limit).
    - What's unclear: Swiss law snippets in `laws_de.csv` can be long (full article text). At `max_length=512`, we truncate ~20-40% of long rows. At `max_length=1024`, encoding time doubles. At `max_length=2048`, it quadruples.
-   - Recommendation: **Start with `max_length=512` for Phase 1** — matches current code, cheap, and the `citation + first_400_chars` snippet pattern at `solution.py:158-161` already pre-truncates to a manageable size. Revisit in Phase 4 if dense recall is a bottleneck.
+   - RESOLVED: **Start with `max_length=512` for Phase 1** — matches current code, cheap, and the `citation + first_400_chars` snippet pattern at `solution.py:158-161` already pre-truncates to a manageable size. Revisit in Phase 4 if dense recall is a bottleneck.
 
 2. **Should the dense query embedding average [EN, DE] equally (D-04) or weight one?**
    - What we know: D-04 says "averages the two embeddings L2-normalized" — equal weight is the locked decision.
    - What's unclear: Whether equal weight is actually optimal. BGE-M3 handles EN queries natively; the German translation may add noise for some queries.
-   - Recommendation: **Honor D-04 (equal weight) in Phase 1.** Log per-query dense retrieval recall separately for {EN-only, DE-only, averaged} on val as a diagnostic — this surfaces the question for later phases without relitigating D-04.
+   - RESOLVED: **Honor D-04 (equal weight) in Phase 1.** Log per-query dense retrieval recall separately for {EN-only, DE-only, averaged} on val as a diagnostic — this surfaces the question for later phases without relitigating D-04.
 
 3. **Does the cross-encoder need truncation at 256 tokens or 512 tokens per candidate?**
    - What we know: CP-8 (`.planning/research/PITFALLS.md`) recommends 256-token truncation at 200 candidates for court corpus. Phase 1 has no court corpus and only 150 candidates.
    - What's unclear: Whether 512-token truncation is affordable at 150 candidates.
-   - Recommendation: **Use 512 tokens at 150 candidates for Phase 1.** Total forward passes = 150 × 50 / 32 = ~235. At 200ms each = 47 seconds. Fits the budget with room. Phase 4 tightens this when the fused candidate pool grows.
+   - RESOLVED: **Use 512 tokens at 150 candidates for Phase 1.** Total forward passes = 150 × 50 / 32 = ~235. At 200ms each = 47 seconds. Fits the budget with room. Phase 4 tightens this when the fused candidate pool grows.
 
 4. **bm25s `stopwords` string vs pre-filtered list — which works reliably?**
    - What we know: bm25s's `stopwords="de"` uses an ISO code mapping that `[ASSUMED]` may map to NLTK's "german" list.
    - What's unclear: Whether the ISO mapping in bm25s 0.2.x is robust or silently returns an empty list.
-   - Recommendation: **Pre-filter in our own tokenizer**, pass clean list-of-list to `bm25s.BM25().index()`. Avoids the ambiguity entirely.
+   - RESOLVED: **Pre-filter in our own tokenizer**, pass clean list-of-list to `bm25s.BM25().index()`. Avoids the ambiguity entirely.
 
 5. **What's the actual val gold-citation count distribution, and does it shift K calibration?**
    - What we know: AH-5 says val mean is 25.1; train mean is 4.1. AboutData.md says test "matches the val distribution."
    - What's unclear: Whether val's distribution is [20, 22, 25, 28, 31] (tight) or [2, 10, 25, 50, 100] (wide). Wide distribution means a single global K is fundamentally wrong — per-query K is needed (Phase 5 scope).
-   - Recommendation: **Add a data-inspection task to cell 2**: log `val['gold_citations'].str.split(';').str.len().describe()`. If std > 10, flag the result in the calibration cell. Do NOT act on it in Phase 1 — per-query K is locked to Phase 5.
+   - RESOLVED: **Add a data-inspection task to cell 2**: log `val['gold_citations'].str.split(';').str.len().describe()`. If std > 10, flag the result in the calibration cell. Do NOT act on it in Phase 1 — per-query K is locked to Phase 5.
 
 ---
 
