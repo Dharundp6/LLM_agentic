@@ -23,48 +23,48 @@ Kaggle competition entry for cross-lingual Swiss legal citation retrieval. Given
 
 Final candidates are reranked by a cross-encoder (BAAI/bge-reranker-v2-m3) with 0.7/0.3 interpolation.
 
-## File Navigation
+## Project Structure
 
-### Core
-
-| File | Description |
-|------|-------------|
-| `notebook_kaggle.ipynb` | Main pipeline notebook (run on Kaggle or Vast.ai) |
-| `build_notebook.py` | Script to programmatically build the notebook from cells |
-| `vastai_setup.sh` | Vast.ai instance setup script |
-
-### Data & Models
-
-| Directory | Description |
-|-----------|-------------|
-| `Data/` | Local copy of competition data (laws, court decisions, queries) |
-| `models/` | Downloaded HuggingFace models (BGE-M3, reranker, Qwen) |
-| `kaggle_dataset/` | Packaged dataset for Kaggle upload |
-| `kaggle_submission/` | Generated submission files |
-
-### Reference Notebooks
-
-| File | Description |
-|------|-------------|
-| `tfidf-cocitationlb0.60.ipynb` | Competitor notebook (symbolic-only, LB 0.0603) |
-| `notebook_kaggle (1).ipynb` | Reference notebook with Vast.ai download patterns |
-| `llm-agentic-legal-retrieval*.ipynb` | Earlier pipeline iterations |
-| `finetune_proper*.ipynb` | Fine-tuning experiments (dead end - base e5 outperformed) |
-
-### Planning
-
-| File | Description |
-|------|-------------|
-| `.planning/ROADMAP.md` | Project roadmap and phase breakdown |
-| `.planning/IMPLEMENTATION_PLAN.md` | Detailed implementation plan |
-| `.planning/phases/` | Per-phase research and execution artifacts |
-
-### Scripts
-
-| Directory | Description |
-|-----------|-------------|
-| `scripts/` | Notebook cell builders and patching utilities |
-| `competitor_notebooks/` | Downloaded competitor solutions for analysis |
+```
+.
+├── notebook_kaggle.ipynb        # Main pipeline notebook (Kaggle / Vast.ai)
+├── build_notebook.py            # Programmatic notebook builder from cells
+├── vastai_setup.sh              # Vast.ai instance setup script
+├── README.md
+├── CLAUDE.md                    # AI assistant project instructions
+│
+├── competitor_notebooks/        # Scraped competitor solutions
+│   ├── citation_graph/          # Citation graph approach
+│   ├── hybrid_baseline/         # Hybrid retrieval baseline
+│   ├── qwen3_0065/              # Qwen3 embedding + reranker (LB 0.065)
+│   ├── tfidf_cocitation/        # TF-IDF + co-citation approach
+│   └── tfidf-cocitation.ipynb   # Top competitor (LB 0.0603)
+│
+├── scripts/                     # Notebook cell builders & patching utilities
+├── _cells/                      # Individual cell source files
+├── config/                      # Kaggle kernel metadata
+│
+├── Data/                        # Competition data (not in repo)
+│   ├── court_considerations.csv # 2.47M court decisions (2.4GB)
+│   ├── laws_de.csv              # 175K Swiss law articles (73MB)
+│   ├── train.csv                # Training queries with gold citations
+│   ├── val.csv                  # Validation queries
+│   └── test.csv                 # Test queries (predict these)
+│
+├── models/                      # HuggingFace models (not in repo)
+├── kaggle_dataset/              # Packaged dataset for Kaggle upload
+├── kaggle_submission/           # Generated submission files
+│
+├── archive/                     # Old iterations & experiments
+│   ├── finetune_proper*.ipynb   # Fine-tuning experiments (dead end)
+│   ├── llm-agentic-legal-*.ipynb # Earlier pipeline versions
+│   └── ...                      # Logs, reports, broken versions
+│
+└── .planning/                   # Project planning artifacts
+    ├── ROADMAP.md               # Phase breakdown
+    ├── IMPLEMENTATION_PLAN.md   # Detailed implementation plan
+    └── phases/                  # Per-phase research & execution
+```
 
 ## Models Used
 

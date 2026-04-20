@@ -1,0 +1,19 @@
+{
+  "id": "diversedharun/llm-agentic-legal-retrieval",
+  "title": "llm-agentic-legal-retrieval",
+  "code_file": "notebook_kaggle.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "competition_sources": [
+    "llm-agentic-legal-information-retrieval"
+  ],
+  "dataset_sources": [],
+  "model_sources": [
+    "qwen-lm/qwen2.5/transformers/7b-instruct/1"
+  ],
+  "kernel_sources": [],
+  "accelerator": "gpu"
+}
